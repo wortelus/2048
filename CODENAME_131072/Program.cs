@@ -68,18 +68,8 @@ namespace CODENAME_131072
             Console.WriteLine("Thank you for playing my clone of the original 2048 game.");
             Console.WriteLine("If you want to contact me or report bug, e-mail me at: \twortelus@gmail.com");
             Console.WriteLine("Created by Daniel Slavík alias wortelus");
-            Console.WriteLine("--------Press any key to exit--------");
-            ConsoleKey ck = Console.ReadKey(true).Key;
-            if (ck == ConsoleKey.Delete) // easter egg
-            {
-                ToInfinityAndBeyond();
-            }
-        }
-
-        public void ToInfinityAndBeyond()
-        {
-            Console.WriteLine("Initiating stack-overflow......... FIRE!");
-            ToInfinityAndBeyond();
+            Console.WriteLine("--------Press ENTER to exit--------");
+            Console.ReadLine();
         }
 
         public void RenderGrid()
