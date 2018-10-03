@@ -10,7 +10,10 @@ namespace CODENAME_131072
     {
         static void Main(string[] args)
         {
-            GameClass game = new GameClass();
+            while (true)
+            {
+                GameClass game = new GameClass();
+            }
         }
     }
 
@@ -25,6 +28,7 @@ namespace CODENAME_131072
 
         public GameClass()
         {
+            RemoveLostMessage();
             Console.SetWindowSize(Console.WindowWidth, Console.WindowHeight); // for easy change
             Console.WriteLine("CODENAME_131072 - made by wortelus");
             Console.WriteLine("-----------------------------------");
@@ -58,20 +62,34 @@ namespace CODENAME_131072
                 }
             }
 
-            Console.SetCursorPosition(0, yGrid + 6);
             LostMessage();
         }
 
         public void LostMessage()
         {
+            Console.SetCursorPosition(0, yGrid + 6);
             Console.WriteLine("You have lost... press Enter to exit ;) see you next time..");
             Console.WriteLine("Thank you for playing my clone of the original 2048 game.");
             Console.WriteLine("If you want to contact me or report bug, e-mail me at: \twortelus@gmail.com");
             Console.WriteLine("Created by Daniel Slavík alias wortelus");
-            Console.WriteLine("--------Press ENTER to exit--------");
+            Console.WriteLine("--------Press ENTER to play again--------");
             Console.ReadLine();
         }
 
+        public void RemoveLostMessage()
+        {
+            Console.SetCursorPosition(0, yGrid + 6);
+            Console.Write(new string(' ', Console.WindowWidth));
+            Console.SetCursorPosition(0, yGrid + 7);
+            Console.Write(new string(' ', Console.WindowWidth));
+            Console.SetCursorPosition(0, yGrid + 8);
+            Console.Write(new string(' ', Console.WindowWidth));
+            Console.SetCursorPosition(0, yGrid + 9);
+            Console.Write(new string(' ', Console.WindowWidth));
+            Console.SetCursorPosition(0, yGrid + 10);
+            Console.Write(new string(' ', Console.WindowWidth));
+            Console.SetCursorPosition(0, 0);
+        }
         public void RenderGrid()
         {
             Console.SetCursorPosition(0, 1);
