@@ -19,8 +19,8 @@ namespace CODENAME_131072
 
     class GameClass
     {
-        const int xGrid = 8;
-        const int yGrid = 8;
+        const int xGrid = 4;
+        const int yGrid = 4;
         const int tileLength = 4;
         int score = 0;
         int moves = 0;
