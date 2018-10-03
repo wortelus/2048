@@ -25,7 +25,7 @@ namespace CODENAME_131072
 
         public GameClass()
         {
-            Console.SetWindowSize(80, Console.WindowHeight);
+            Console.SetWindowSize(Console.WindowWidth, Console.WindowHeight); // for easy change
             Console.WriteLine("CODENAME_131072 - made by wortelus");
             Console.WriteLine("-----------------------------------");
             InitiateStartBlocks();
@@ -737,17 +737,19 @@ namespace CODENAME_131072
                 case 128:
                     return ConsoleColor.DarkRed;
                 case 256:
-                    return ConsoleColor.Yellow;
-                case 512:
                     return ConsoleColor.Magenta;
-                case 1024:
+                case 512:
                     return ConsoleColor.Blue;
-                case 2048:
+                case 1024:
                     return ConsoleColor.Cyan;
-                case 4096:
+                case 2048:
                     return ConsoleColor.Green;
-                case 8192:
+                case 4096:
                     return ConsoleColor.Yellow;
+                case 8192:
+                    return ConsoleColor.Red;
+                case 16384:
+                    return ConsoleColor.Gray;
                 default:
                     return ConsoleColor.Black;
             }
