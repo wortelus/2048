@@ -120,11 +120,11 @@ namespace CODENAME_131072
                     }
                 }
 
-                for (int a = 1; a < xGrid; a++)
+                for (int a = xGrid - 1; a > 0; a--)
                 {
-                    for (int b = a; b < xGrid; b++)
+                    if (grid[a - 1, i] == 0)
                     {
-                        if (grid[b - 1, i] == 0)
+                        for (int b = a; b < xGrid; b++)
                         {
                             grid[b - 1, i] = grid[b, i];
                             grid[b, i] = 0;
@@ -142,11 +142,11 @@ namespace CODENAME_131072
                     }
                 }
 
-                for (int a = 1; a < xGrid; a++)
+                for (int a = xGrid - 1; a > 0; a--)
                 {
-                    for (int b = a; b < xGrid; b++)
+                    if (grid[a - 1, i] == 0)
                     {
-                        if (grid[b - 1, i] == 0)
+                        for (int b = a; b < xGrid; b++)
                         {
                             grid[b - 1, i] = grid[b, i];
                             grid[b, i] = 0;
@@ -200,14 +200,14 @@ namespace CODENAME_131072
                     }
                 }
 
-                for (int i = 1; i < yGrid - 1; i++)
+                for (int i = yGrid - 1; i > 0; i--)
                 {
-                    for (int b = i; b < yGrid; b++)
+                    if (grid[a, i - 1] == 0)
                     {
-                        if (grid[a, b - 1] == 0)
+                        for (int j = i; j < yGrid; j++)
                         {
-                            grid[a, b - 1] = grid[a, b];
-                            grid[a, b] = 0;
+                            grid[a, j - 1] = grid[a, j];
+                            grid[a, j] = 0;
                         }
                     }
                 }
@@ -220,14 +220,14 @@ namespace CODENAME_131072
                         score += grid[a, i];
                     }
                 }
-                for (int i = 1; i < yGrid - 1; i++)
+                for (int i = yGrid - 1; i > 0; i--)
                 {
-                    for (int b = i; b < yGrid; b++)
+                    if (grid[a, i - 1] == 0)
                     {
-                        if (grid[a, b - 1] == 0)
+                        for (int j = i; j < yGrid; j++)
                         {
-                            grid[a, b - 1] = grid[a, b];
-                            grid[a, b] = 0;
+                            grid[a, j - 1] = grid[a, j];
+                            grid[a, j] = 0;
                         }
                     }
                 }
@@ -278,15 +278,15 @@ namespace CODENAME_131072
                     }
                 }
 
-                for (int i = yGrid - 1; i > 0; i--)
+                for (int i = 0; i < yGrid; i++)
                 {
-                    for (int j = i; j > 0; j--)
+                    if (grid[a, i] == 0)
                     {
-                        if (grid[a, j] == 0)
+                        for (int j = i; j > 0; j--)
                         {
                             grid[a, j] = grid[a, j - 1];
                             grid[a, j - 1] = 0;
-                        }
+                        }                       
                     }
                 }
                 for (int i = yGrid - 1; i > 0; i--)
@@ -298,11 +298,11 @@ namespace CODENAME_131072
                         score += grid[a, i];
                     }
                 }
-                for (int i = yGrid - 1; i > 0; i--)
+                for (int i = 0; i < yGrid; i++)
                 {
-                    for (int j = i; j > 0; j--)
+                    if (grid[a, i] == 0)
                     {
-                        if (grid[a, j] == 0)
+                        for (int j = i; j > 0; j--)
                         {
                             grid[a, j] = grid[a, j - 1];
                             grid[a, j - 1] = 0;
@@ -356,14 +356,14 @@ namespace CODENAME_131072
                     }
                 }
 
-                for (int a = xGrid - 1; a > 0; a--)
+                for (int a = 0; a < xGrid - 1; a++)
                 {
-                    for (int b = a; b > 0; b--)
+                    if (grid[a + 1, i] == 0)
                     {
-                        if (grid[b, i] == 0)
+                        for (int b = a; b >= 0; b--)
                         {
-                            grid[b, i] = grid[b - 1, i];
-                            grid[b - 1, i] = 0;
+                            grid[b + 1, i] = grid[b, i];
+                            grid[b, i] = 0;
                         }
                     }
                 }
@@ -378,14 +378,14 @@ namespace CODENAME_131072
                     }
                 }
 
-                for (int a = xGrid - 1; a > 0; a--)
+                for (int a = 0; a < xGrid - 1; a++)
                 {
-                    for (int b = a; b > 0; b--)
+                    if (grid[a + 1, i] == 0)
                     {
-                        if (grid[b, i] == 0)
+                        for (int b = a; b >= 0; b--)
                         {
-                            grid[b, i] = grid[b - 1, i];
-                            grid[b - 1, i] = 0;
+                            grid[b + 1, i] = grid[b, i];
+                            grid[b, i] = 0;
                         }
                     }
                 }
@@ -443,14 +443,14 @@ namespace CODENAME_131072
                     }
                 }
 
-                for (int a = xGrid - 1; a > 0; a--)
+                for (int a = 0; a < xGrid - 1; a++)
                 {
-                    for (int b = a; b > 0; b--)
+                    if (tempGrid[a + 1, i] == 0)
                     {
-                        if (tempGrid[b, i] == 0)
+                        for (int b = a; b >= 0; b--)
                         {
-                            tempGrid[b, i] = tempGrid[b - 1, i];
-                            tempGrid[b - 1, i] = 0;
+                            tempGrid[b + 1, i] = tempGrid[b, i];
+                            tempGrid[b, i] = 0;
                         }
                     }
                 }
@@ -464,14 +464,14 @@ namespace CODENAME_131072
                     }
                 }
 
-                for (int a = xGrid - 1; a > 0; a--)
+                for (int a = 0; a < xGrid - 1; a++)
                 {
-                    for (int b = a; b > 0; b--)
+                    if (tempGrid[a + 1, i] == 0)
                     {
-                        if (tempGrid[b, i] == 0)
+                        for (int b = a; b >= 0; b--)
                         {
-                            tempGrid[b, i] = tempGrid[b - 1, i];
-                            tempGrid[b - 1, i] = 0;
+                            tempGrid[b + 1, i] = tempGrid[b, i];
+                            tempGrid[b, i] = 0;
                         }
                     }
                 }
@@ -517,11 +517,11 @@ namespace CODENAME_131072
                     }
                 }
 
-                for (int a = 1; a < xGrid; a++)
+                for (int a = xGrid - 1; a > 0; a--)
                 {
-                    for (int b = a; b < xGrid; b++)
+                    if (tempGrid[a - 1, i] == 0)
                     {
-                        if (tempGrid[b - 1, i] == 0)
+                        for (int b = a; b < xGrid; b++)
                         {
                             tempGrid[b - 1, i] = tempGrid[b, i];
                             tempGrid[b, i] = 0;
@@ -538,11 +538,11 @@ namespace CODENAME_131072
                     }
                 }
 
-                for (int a = 1; a < xGrid; a++)
+                for (int a = xGrid - 1; a > 0; a--)
                 {
-                    for (int b = a; b < xGrid; b++)
+                    if (tempGrid[a - 1, i] == 0)
                     {
-                        if (tempGrid[b - 1, i] == 0)
+                        for (int b = a; b < xGrid; b++)
                         {
                             tempGrid[b - 1, i] = tempGrid[b, i];
                             tempGrid[b, i] = 0;
@@ -591,14 +591,14 @@ namespace CODENAME_131072
                     }
                 }
 
-                for (int i = 1; i < yGrid - 1; i++)
+                for (int i = yGrid - 1; i > 0; i--)
                 {
-                    for (int b = i; b < yGrid; b++)
+                    if (tempGrid[a, i - 1] == 0)
                     {
-                        if (tempGrid[a, b - 1] == 0)
+                        for (int j = i; j < yGrid; j++)
                         {
-                            tempGrid[a, b - 1] = tempGrid[a, b];
-                            tempGrid[a, b] = 0;
+                            tempGrid[a, j - 1] = tempGrid[a, j];
+                            tempGrid[a, j] = 0;
                         }
                     }
                 }
@@ -610,14 +610,14 @@ namespace CODENAME_131072
                         tempGrid[a, i + 1] = 0;
                     }
                 }
-                for (int i = 1; i < yGrid - 1; i++)
+                for (int i = yGrid - 1; i > 0; i--)
                 {
-                    for (int b = i; b < yGrid; b++)
+                    if (tempGrid[a, i - 1] == 0)
                     {
-                        if (tempGrid[a, b - 1] == 0)
+                        for (int j = i; j < yGrid; j++)
                         {
-                            tempGrid[a, b - 1] = tempGrid[a, b];
-                            tempGrid[a, b] = 0;
+                            tempGrid[a, j - 1] = tempGrid[a, j];
+                            tempGrid[a, j] = 0;
                         }
                     }
                 }
@@ -664,11 +664,11 @@ namespace CODENAME_131072
                     }
                 }
 
-                for (int i = yGrid - 1; i > 0; i--)
+                for (int i = 0; i < yGrid; i++)
                 {
-                    for (int j = i; j > 0; j--)
+                    if (tempGrid[a, i] == 0)
                     {
-                        if (tempGrid[a, j] == 0)
+                        for (int j = i; j > 0; j--)
                         {
                             tempGrid[a, j] = tempGrid[a, j - 1];
                             tempGrid[a, j - 1] = 0;
@@ -683,11 +683,11 @@ namespace CODENAME_131072
                         tempGrid[a, i - 1] = 0;
                     }
                 }
-                for (int i = yGrid - 1; i > 0; i--)
+                for (int i = 0; i < yGrid; i++)
                 {
-                    for (int j = i; j > 0; j--)
+                    if (tempGrid[a, i] == 0)
                     {
-                        if (tempGrid[a, j] == 0)
+                        for (int j = i; j > 0; j--)
                         {
                             tempGrid[a, j] = tempGrid[a, j - 1];
                             tempGrid[a, j - 1] = 0;
