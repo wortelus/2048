@@ -22,9 +22,9 @@ namespace CODENAME_131072
         const int xGrid = 4;
         const int yGrid = 4;
         const int tileLength = 4;
-        int score = 0;
-        int moves = 0;
-        int[,] grid = new int[xGrid, yGrid];
+        ulong score = 0;
+        ulong moves = 0;
+        uint[,] grid = new uint[xGrid, yGrid];
 
         public GameClass()
         {
@@ -109,9 +109,20 @@ namespace CODENAME_131072
                         emptyBuffer += " ";
                     }
 
-                    Console.BackgroundColor = GetTileColor(grid[a, i]);
-                    Console.Write("{0,-" + tileLength * 2 + "}", emptyBuffer + grid[a, i]);
-                    Console.BackgroundColor = ConsoleColor.Black;
+                    if (grid[a, i] > 8192)
+                    {
+                        Console.ForegroundColor = GetLargeTileColor(grid[a, i]);
+                        Console.BackgroundColor = ConsoleColor.White;
+                        Console.Write("{0,-" + tileLength * 2 + "}", emptyBuffer + grid[a, i]);
+                        Console.ForegroundColor = ConsoleColor.Gray;
+                        Console.BackgroundColor = ConsoleColor.Black;
+                    }
+                    else
+                    {
+                        Console.BackgroundColor = GetTileColor(grid[a, i]);
+                        Console.Write("{0,-" + tileLength * 2 + "}", emptyBuffer + grid[a, i]);
+                        Console.BackgroundColor = ConsoleColor.Black;
+                    }
                 }
             }
 
@@ -444,11 +455,11 @@ namespace CODENAME_131072
             Random r = new Random();
             int random1 = (int)Math.Pow(2, r.Next(1, 3));
             Tuple<int, int> gridPosition1 = new Tuple<int, int>(r.Next(xGrid), r.Next(yGrid));
-            AddToGrid(gridPosition1.Item1, gridPosition1.Item2, random1);
+            AddToGrid(gridPosition1.Item1, gridPosition1.Item2, (uint)random1);
 
             int random2 = (int)Math.Pow(2, r.Next(1, 3));
             Tuple<int, int> position2 = GetRandomFreeGridPosition();
-            AddToGrid(position2.Item1, position2.Item2, random2);
+            AddToGrid(position2.Item1, position2.Item2, (uint)random2);
         }
 
         public Tuple<int, int> GenerateNewBlock()
@@ -456,13 +467,13 @@ namespace CODENAME_131072
             Random r = new Random();
             int random2 = (int)Math.Pow(2, r.Next(1, 3));
             Tuple<int, int> position2 = GetRandomFreeGridPosition();
-            AddToGrid(position2.Item1, position2.Item2, random2);
+            AddToGrid(position2.Item1, position2.Item2, (uint)random2);
             return position2;
         }
 
         public bool CheckMoveRightPossibility()
         {
-            int[,] tempGrid = new int[xGrid, yGrid];
+            uint[,] tempGrid = new uint[xGrid, yGrid];
             for (int i = 0; i < yGrid; i++)
             {
                 for (int a = 0; a < xGrid; a++)
@@ -536,7 +547,7 @@ namespace CODENAME_131072
 
         public bool CheckMoveLeftPossibility()
         {
-            int[,] tempGrid = new int[xGrid, yGrid];
+            uint[,] tempGrid = new uint[xGrid, yGrid];
             for (int i = 0; i < yGrid; i++)
             {
                 for (int a = 0; a < xGrid; a++)
@@ -610,7 +621,7 @@ namespace CODENAME_131072
 
         public bool CheckMoveUpPossibility()
         {
-            int[,] tempGrid = new int[xGrid, yGrid];
+            uint[,] tempGrid = new uint[xGrid, yGrid];
             for (int i = 0; i < yGrid; i++)
             {
                 for (int a = 0; a < xGrid; a++)
@@ -683,7 +694,7 @@ namespace CODENAME_131072
 
         public bool CheckMoveDownPossibility()
         {
-            int[,] tempGrid = new int[xGrid, yGrid];
+            uint[,] tempGrid = new uint[xGrid, yGrid];
             for (int i = 0; i < yGrid; i++)
             {
                 for (int a = 0; a < xGrid; a++)
@@ -753,12 +764,12 @@ namespace CODENAME_131072
             return false;
         }
 
-        public void AddToGrid(int x, int y, int value)
+        public void AddToGrid(int x, int y, uint value)
         {
             grid[x, y] = value;
         }
 
-        public ConsoleColor GetTileColor(int value)
+        public ConsoleColor GetTileColor(uint value)
         {
             switch(value)
             {
@@ -790,8 +801,43 @@ namespace CODENAME_131072
                     return ConsoleColor.Yellow;
                 case 8192:
                     return ConsoleColor.Red;
+                default:
+                    return ConsoleColor.Black;
+            }
+        }
+
+        public ConsoleColor GetLargeTileColor(uint value)
+        {
+            switch (value)
+            {
                 case 16384:
-                    return ConsoleColor.Gray;
+                    return ConsoleColor.Black;
+                case 32768:
+                    return ConsoleColor.DarkGray;
+                case 65536:
+                    return ConsoleColor.DarkYellow;
+                case 131072:
+                    return ConsoleColor.DarkMagenta;
+                case 262144:
+                    return ConsoleColor.DarkBlue;
+                case 524288:
+                    return ConsoleColor.DarkCyan;
+                case 1048576:
+                    return ConsoleColor.DarkGreen;
+                case 2097152:
+                    return ConsoleColor.DarkRed;
+                case 4194304:
+                    return ConsoleColor.Magenta;
+                case 8388608:
+                    return ConsoleColor.Blue;
+                case 16777216:
+                    return ConsoleColor.Cyan;
+                case 33554432:
+                    return ConsoleColor.Green;
+                case 67108864:
+                    return ConsoleColor.Yellow;
+                case 134217728:
+                    return ConsoleColor.Red;
                 default:
                     return ConsoleColor.Black;
             }
