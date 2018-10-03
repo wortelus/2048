@@ -19,8 +19,8 @@ namespace CODENAME_131072
 
     class GameClass
     {
-        const int xGrid = 4;
-        const int yGrid = 4;
+        const int xGrid = 8;
+        const int yGrid = 8;
         const int tileLength = 4;
         int score = 0;
         int moves = 0;
@@ -54,6 +54,10 @@ namespace CODENAME_131072
                 else if (ck == ConsoleKey.RightArrow)
                 {
                     MoveRight();
+                }
+                else if (ck == ConsoleKey.Insert)
+                {
+                    StupidAI();
                 }
                 RenderGrid();
                 if (CheckMoveDownPossibility() == false && CheckMoveLeftPossibility() == false && CheckMoveRightPossibility() == false && CheckMoveUpPossibility() == false)
@@ -115,6 +119,26 @@ namespace CODENAME_131072
             Console.WriteLine("-----------------------------------");
             Console.WriteLine("Score: " + score + "\t | Moves: " + moves + "\t ");
             Console.WriteLine("-----------------------------------");
+        }
+
+        public void StupidAI()
+        {
+            while (true)
+            {
+                MoveLeft();
+                MoveUp();
+                MoveRight();
+                MoveUp();
+                if (CheckMoveDownPossibility() == false && CheckMoveLeftPossibility() == false && CheckMoveRightPossibility() == false && CheckMoveUpPossibility() == false)
+                {
+                    break;
+                }
+                else if (CheckMoveLeftPossibility() == false && CheckMoveRightPossibility() == false && CheckMoveUpPossibility() == false)
+                {
+                    MoveDown();
+                    MoveUp();
+                }
+            }
         }
 
         public void MoveLeft()
