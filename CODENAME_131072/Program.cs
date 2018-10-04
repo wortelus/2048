@@ -72,7 +72,7 @@ namespace CODENAME_131072
         public void LostMessage()
         {
             Console.SetCursorPosition(0, yGrid + 6);
-            Console.WriteLine("You have lost... press Enter to exit ;) see you next time..");
+            Console.WriteLine("You have lost... press Enter to try again ;) see you next time..");
             Console.WriteLine("Thank you for playing my clone of the original 2048 game.");
             Console.WriteLine("If you want to contact me or report bug, e-mail me at: \twortelus@gmail.com");
             Console.WriteLine("Created by Daniel Slavík alias wortelus");
