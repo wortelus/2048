@@ -10,9 +10,11 @@ namespace CODENAME_131072
     {
         static void Main(string[] args)
         {
+            char memoryMode = 'E';
             while (true)
             {
-                GameClass game = new GameClass();
+                GameClass game = new GameClass(memoryMode);
+                memoryMode = game.mode;
             }
         }
     }
@@ -25,9 +27,11 @@ namespace CODENAME_131072
         ulong score = 0;
         ulong moves = 0;
         uint[,] grid = new uint[xGrid, yGrid];
+        public char mode = 'E';
 
-        public GameClass()
+        public GameClass(char _mode)
         {
+            mode = _mode;
             RemoveLostMessage();
             Console.SetWindowSize(Console.WindowWidth, Console.WindowHeight); // for easy change
             Console.WriteLine("CODENAME_131072 - made by wortelus");
@@ -59,6 +63,14 @@ namespace CODENAME_131072
                 {
                     StupidAI();
                 }
+                else if(ck == ConsoleKey.E)
+                {
+                    mode = 'E';
+                }
+                else if (ck == ConsoleKey.H)
+                {
+                    mode = 'H';
+                }
                 RenderGrid();
                 if (CheckMoveDownPossibility() == false && CheckMoveLeftPossibility() == false && CheckMoveRightPossibility() == false && CheckMoveUpPossibility() == false)
                 {
@@ -71,7 +83,7 @@ namespace CODENAME_131072
 
         public void LostMessage()
         {
-            Console.SetCursorPosition(0, yGrid + 6);
+            Console.SetCursorPosition(0, yGrid + 8);
             Console.WriteLine("You have lost... press Enter to try again ;) see you next time..");
             Console.WriteLine("Thank you for playing my clone of the original 2048 game.");
             Console.WriteLine("If you want to contact me or report bug, e-mail me at: \twortelus@gmail.com");
@@ -91,6 +103,10 @@ namespace CODENAME_131072
             Console.SetCursorPosition(0, yGrid + 9);
             Console.Write(new string(' ', Console.WindowWidth));
             Console.SetCursorPosition(0, yGrid + 10);
+            Console.Write(new string(' ', Console.WindowWidth));
+            Console.SetCursorPosition(0, yGrid + 11);
+            Console.Write(new string(' ', Console.WindowWidth));
+            Console.SetCursorPosition(0, yGrid + 12);
             Console.Write(new string(' ', Console.WindowWidth));
             Console.SetCursorPosition(0, 0);
         }
@@ -129,6 +145,8 @@ namespace CODENAME_131072
             Console.SetCursorPosition(0, yGrid + 3);
             Console.WriteLine("-----------------------------------");
             Console.WriteLine("Score: " + score + "\t | Moves: " + moves + "\t ");
+            Console.WriteLine("-----------------------------------");
+            Console.WriteLine("Mode: " + mode + "\t\t | Change [E] or [H] ");
             Console.WriteLine("-----------------------------------");
         }
 
@@ -856,15 +874,151 @@ namespace CODENAME_131072
             {
                 for(int a = 0; a < xGrid; a++)
                 {
-                    if (grid[a, i] == 0)
+                    if (mode == 'H')
                     {
-                        freeList.Add(new Tuple<int, int>(a, i));
+                        if (grid[a, i] == 0 && HardcoreCheckNeighbours(a, i))
+                        {
+                            freeList.Add(new Tuple<int, int>(a, i));
+                        }
+                    }
+                    else
+                    {
+                        if (grid[a, i] == 0 && SimpleCheckNeighbours(a, i))
+                        {
+                            freeList.Add(new Tuple<int, int>(a, i));
+                        }
                     }
                 }
             }
 
             int random = new Random().Next(0, freeList.Count);
             return freeList[random];
+        }
+
+        public bool HardcoreCheckNeighbours(int x, int y)
+        {
+            if(x == 0) //value is on the left
+            {
+                if (y == 0) //value is top left
+                {
+                    if (grid[x, y + 1] != 0 ||
+                    grid[x + 1, y] != 0)
+                    {
+                        return true;
+                    }
+                }
+                else if (y == yGrid - 1) //value is bottom left
+                {
+                    if (grid[x, y - 1] != 0 ||
+                    grid[x + 1, y] != 0)
+                    {
+                        return true;
+                    }
+                }
+                else //value is left
+                {
+                    if (grid[x, y - 1] != 0 ||
+                    grid[x + 1, y] != 0 ||
+                    grid[x, y + 1] != 0)
+                    {
+                        return true;
+                    }
+                }
+            }
+            else if(x == xGrid - 1) //value is on the right
+            {
+                if (y == 0) //value is top right
+                {
+                    if (grid[x, y + 1] != 0 ||
+                    grid[x - 1, y] != 0)
+                    {
+                        return true;
+                    }
+                }
+                else if (y == yGrid - 1) // value is bottom right
+                {
+                    if (grid[x, y - 1] != 0 ||
+                    grid[x - 1, y] != 0)
+                    {
+                        return true;
+                    }
+                }
+                else // value is right
+                {
+                    if (grid[x, y - 1] != 0 ||
+                    grid[x - 1, y] != 0 ||
+                    grid[x, y + 1] != 0)
+                    {
+                        return true;
+                    }
+                }
+            }
+            else //value is in the center, but can be top or bottom
+            {
+                if (y == 0) //value is top center
+                {
+                    if (grid[x, y + 1] != 0 ||
+                    grid[x + 1, y] != 0 ||
+                    grid[x - 1, y] != 0)
+                    {
+                        return true;
+                    }
+                }
+                else if (y == yGrid - 1) // value is bottom center
+                {
+                    if (grid[x, y - 1] != 0 ||
+                    grid[x + 1, y] != 0 ||
+                    grid[x - 1, y] != 0)
+                    {
+                        return true;
+                    }
+                }
+                else // value is totally in the middle
+                {
+                    if (grid[x, y + 1] != 0 ||
+                    grid[x, y - 1] != 0 ||
+                    grid[x + 1, y] != 0 ||
+                    grid[x - 1, y] != 0)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public bool SimpleCheckNeighbours(int x, int y)
+        {
+            if (x == 0) //value is on the left
+            {
+                return true;
+            }
+            else if (x == xGrid - 1) //value is on the right
+            {
+                return true;
+            }
+            else //value is in the center, but can be top or bottom
+            {
+                if (y == 0) //value is top center
+                {
+                    return true;
+                }
+                else if (y == yGrid - 1) // value is bottom center
+                {
+                    return true;
+                }
+                else // value is totally in the middle
+                {
+                    if (grid[x, y + 1] != 0 ||
+                    grid[x, y - 1] != 0 ||
+                    grid[x + 1, y] != 0 ||
+                    grid[x - 1, y] != 0)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
     }
 }
