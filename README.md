@@ -3,7 +3,7 @@ This is a clone of a popular mobile game called 2048 made in Console Application
 
 ## How To Play
 Arrows: Up, Right, Down, Left
-Enter to exit the game
+Enter to exit the game, [H] or [E] to change play mode (the way how new blocks are rendered)
 
 ## Description
 You play on 4x4 grid (default, can be easily modified) and you can track your score and number of moves.
